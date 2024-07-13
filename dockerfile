@@ -1,5 +1,5 @@
 FROM amazoncorretto:22-alpine3.19-jdk
-RUN apt-get-update && apt-get install -y maven
+RUN apt-get update && apt-get install -y maven
 
 ARG PATH=server
 
