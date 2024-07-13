@@ -11,7 +11,7 @@ FROM amazoncorretto:22-alpine3.19-jdk
 
 LABEL mentainer="pritam_k@pursuitsoftware.com"
 
-WORKDIR /app
+WORKDIR /server
 
 COPY target/*.jar app.jar
 
