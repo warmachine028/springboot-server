@@ -27,4 +27,4 @@ The following guides illustrate how to use some features concretely:
 ## Commands
 
 * Install Packages: `mvn clean install`
-* Run Server: `mvn spring-boot:run`
+* Run Server: `mvn -f server spring-boot:run`
