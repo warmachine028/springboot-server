@@ -1,7 +1,7 @@
 FROM scratch
 LABEL MAINTAINER="Pritam K."
 ARG PATH=server
-RUN ls
+RUN echo "Running L:\n" && ls -l
 FROM maven:3.9.8-eclipse-temurin-22 AS maven
 RUN mvn -v
 RUN mvn -f server clean install 
