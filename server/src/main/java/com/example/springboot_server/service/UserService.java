@@ -62,4 +62,16 @@ public class UserService {
         }
         return Optional.of(existingUser);
     }
+
+    public Optional<User> deleteById(int id) {
+        Optional<User> existingUserOpt = findById(id);
+
+        if (existingUserOpt.isEmpty())
+            return Optional.empty();
+
+        User existingUser = existingUserOpt.get();
+        userList.remove(existingUser);
+
+        return Optional.of(existingUser);
+    }
 }

@@ -4,13 +4,21 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="shortcut icon" href="https://www.svgrepo.com/show/354380/spring-icon.svg" type="image/x-icon" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet" />
 		<title>Spring Boot Client</title>
 		<style>
 			:root {
+				font-family: "Roboto", sans-serif;
 				background-color: #06141d;
 				height: 99%;
 				--primary: rgb(32, 176, 243);
 				--danger: rgb(243, 32, 32);
+				--table-bg: #112233;
+				--table-header-bg: #334455;
+				--table-border: #556677;
+				--table-text: #ffffff;
 			}
 			body {
 				display: flex;
@@ -18,6 +26,7 @@
 				align-items: center;
 				height: 100%;
 				flex-direction: column;
+				color: white;
 			}
 			button {
 				width: 300px;
@@ -33,6 +42,23 @@
 				opacity: 70%;
 				border: 2px solid white;
 			}
+			table {
+				margin: 20px 0;
+				border-collapse: collapse;
+				width: 80%;
+				max-width: 600px;
+				overflow-x: auto;
+			}
+			table,
+			th,
+			td {
+				border: 1px solid white;
+			}
+			th,
+			td {
+				padding: 10px;
+				text-align: left;
+			}
 			.modal {
 				display: none;
 				position: fixed;
@@ -46,11 +72,12 @@
 			}
 			.modal-content {
 				background-color: #fefefe;
+				color: black;
 				margin: auto;
 				padding: 20px;
 				border: 1px solid #888;
 				border-radius: 10px;
-				width: 80%; /* Responsive width */
+				width: 80%;
 				max-width: 500px;
 				display: flex;
 				flex-direction: column;
@@ -82,6 +109,41 @@
 			.modal-content button:hover {
 				opacity: 70%;
 			}
+			table {
+				margin: 20px 0;
+				border-collapse: collapse;
+				width: 80%;
+				max-width: 600px;
+				background-color: var(--table-bg);
+				color: var(--table-text);
+				border-radius: 10px;
+				overflow: hidden;
+			}
+			table,
+			th,
+			td {
+				border: 1px solid var(--table-border);
+			}
+			th,
+			td {
+				padding: 15px;
+				text-align: left;
+			}
+			th {
+				background-color: var(--table-header-bg);
+			}
+			tr:nth-child(even) {
+				background-color: #223344;
+			}
+			tr:hover {
+				background-color: #445566;
+			}
+			table td:last-child, th:last-child {
+				display: flex;
+				justify-content: center;
+
+
+			}
 		</style>
 	</head>
 	<body>
@@ -89,6 +151,21 @@
 		<button onclick="handleGetUsers()">Get Users</button>
 		<button onclick="openUserForm()">Add User</button>
 		<button onclick="openUpdateForm()">Update User</button>
+
+		<table id="userTable">
+			<thead>
+				<tr>
+					<th>User ID</th>
+					<th>Name</th>
+					<th>Age</th>
+					<th>Email</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- User data will be inserted here -->
+			</tbody>
+		</table>
 
 		<div id="userModal" class="modal">
 			<div class="modal-content">
@@ -140,7 +217,7 @@
 					if (!response.ok) throw new Error("User not found")
 
 					let data = await response.json()
-					alert(`User Details:\nName: ${data.name}\nAge: ${data.age}\nEmail: ${data.email}`)
+					updateTable([data])
 				} catch (error) {
 					alert(error.message)
 				}
@@ -150,7 +227,7 @@
 				try {
 					let response = await fetch(`${API_URL}/users`)
 					let data = await response.json()
-					alert(JSON.stringify(data))
+					updateTable(data)
 				} catch (error) {
 					alert(error.message)
 				}
@@ -178,6 +255,7 @@
 					let data = await response.json()
 					alert("User added successfully!")
 					document.getElementById("userModal").style.display = "none"
+					handleGetUsers() // Refresh the user list
 				} catch (error) {
 					alert(error.message)
 				}
@@ -208,9 +286,48 @@
 					let data = await response.json()
 					alert("User updated successfully!")
 					document.getElementById("updateModal").style.display = "none"
+					handleGetUsers() // Refresh the user list
 				} catch (error) {
 					alert(error.message)
 				}
+			}
+
+			const handleDeleteUser = async (id) => {
+				const confirmDelete = confirm("Are you sure you want to delete this user?")
+				if (!confirmDelete) return
+
+				try {
+					let response = await fetch(`${API_URL}/users/${id}`, {
+						method: "DELETE",
+					})
+
+					if (!response.ok) throw new Error("User not found or delete failed")
+
+					alert("User deleted successfully!")
+					handleGetUsers() // Refresh the user list
+				} catch (error) {
+					alert(error.message)
+				}
+			}
+
+			const updateTable = users => {
+				const tbody = document.getElementById("userTable").getElementsByTagName("tbody")[0]
+				tbody.innerHTML = "" // Clear existing rows
+
+				users.forEach(user => {
+					const row = tbody.insertRow()
+					row.insertCell().textContent = user.id
+					row.insertCell().textContent = user.name
+					row.insertCell().textContent = user.age
+					row.insertCell().textContent = user.email
+					const actionsCell = row.insertCell()
+					const deleteButton = document.createElement("img")
+					deleteButton.width = 20
+					deleteButton.srcset ="https://img.icons8.com/?size=256&id=68064&format=png" 
+					deleteButton.style = "filter: invert(40%) sepia(9%) saturate(4422%) hue-rotate(316deg) brightness(113%) contrast(105%); cursor:pointer;"
+					deleteButton.onclick = () => handleDeleteUser(user.id)
+					actionsCell.appendChild(deleteButton)
+				})
 			}
 
 			window.onclick = event => {
