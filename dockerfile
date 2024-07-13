@@ -8,7 +8,7 @@ FROM amazoncorretto:22-alpine3.19-jdk AS INSTALL-JDK
 ARG PATH=server
 
 # Install Packages
-RUN mvn -f ${PATH} clean install 
+RUN maven -f ${PATH} clean install 
 
 # Run Server
-ENTRYPOINT [ "mvn", "-f", ${PATH}, "spring-boot:run" ]
+ENTRYPOINT [ "maven", "-f", ${PATH}, "spring-boot:run" ]
