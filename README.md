@@ -1,8 +1,8 @@
     updated on: 13th July 2024, Saturday
 
 <div align=center>
-    <a href="https://github.com/warmachine028/springboot-server">
-        <img width="200" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNNMEw0gMcuUKOiT4V1EsyhDj9tv4St5BuRNfh7iV0BA&usqp=CAU&ec=48665699" alt="Springboot Server">
+    <a href="https://warmachine028.github.io/springboot-server/client">
+        <img width="200" src="https://www.svgrepo.com/show/354380/spring-icon.svg" alt="Springboot Server">
     </a>
     <p style="font-family: roboto, calibri; font-size:12pt; font-style:italic"> A good one liner description here </p>
     <a src="https://github.com/warmachine028/springboot-server/forks">
@@ -10,7 +10,7 @@
     </a>
 </div>
 
-# [Springboot Server](https://github.com/warmachine028/springboot-server)
+# [Springboot Server](https://warmachine028.github.io/springboot-server/client)
 
 ![line]
 
