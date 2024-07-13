@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="shortcut icon" href="https://www.svgrepo.com/show/354380/spring-icon.svg" type="image/x-icon" />
+		<title>Spring Boot Client</title>
+		<style>
+			:root {
+				background-color: #06141d;
+				height: 99%;
+				--primary: rgb(32, 176, 243);
+				--danger: rgb(243, 32, 32);
+			}
+			body {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 100%;
+				flex-direction: column;
+			}
+			button {
+				width: 300px;
+				height: 50px;
+				background-color: var(--primary);
+				transition: ease-in-out 0.5s;
+				border-radius: 10px;
+				color: white;
+				font-size: larger;
+				margin: 10px;
+			}
+			button:hover {
+				opacity: 70%;
+				border: 2px solid white;
+			}
+			.modal {
+				display: none;
+				position: fixed;
+				z-index: 1;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				justify-content: center;
+				align-items: center;
+			}
+			.modal-content {
+				background-color: #fefefe;
+				margin: auto;
+				padding: 20px;
+				border: 1px solid #888;
+				border-radius: 10px;
+				width: 80%; /* Responsive width */
+				max-width: 500px;
+				display: flex;
+				flex-direction: column;
+			}
+			.modal-content input {
+				margin: 5px 0;
+				padding: 10px;
+				border: 1px solid #ccc;
+				border-radius: 5px;
+				font-size: 16px;
+			}
+			.modal-content button {
+				border: none;
+				color: white;
+				cursor: pointer;
+				font-size: 16px;
+				margin: 5px 0;
+				width: 100%;
+			}
+			.modal-content button:nth-last-child(1) {
+				border: none;
+				background-color: var(--danger);
+				color: white;
+				cursor: pointer;
+				font-size: 16px;
+				margin: 5px 0;
+				width: 100%;
+			}
+			.modal-content button:hover {
+				opacity: 70%;
+			}
+		</style>
+	</head>
+	<body>
+		<button onclick="handleGetUser()">Get User</button>
+		<button onclick="handleGetUsers()">Get Users</button>
+		<button onclick="openUserForm()">Add User</button>
+		<button onclick="openUpdateForm()">Update User</button>
+
+		<div id="userModal" class="modal">
+			<div class="modal-content">
+				<label for="userName">Name:</label>
+				<input type="text" id="userName" name="userName" />
+				<label for="userAge">Age:</label>
+				<input type="number" id="userAge" name="userAge" />
+				<label for="userEmail">Email:</label>
+				<input type="email" id="userEmail" name="userEmail" />
+				<button onclick="handleAddUser()">Submit</button>
+				<button onclick="closeModal()">Cancel</button>
+			</div>
+		</div>
+
+		<div id="updateModal" class="modal">
+			<div class="modal-content">
+				<label for="updateId">User ID:</label>
+				<input type="text" id="updateId" name="updateId" required />
+				<label for="updateName">New Name:</label>
+				<input type="text" id="updateName" name="updateName" />
+				<label for="updateAge">New Age:</label>
+				<input type="number" id="updateAge" name="updateAge" />
+				<label for="updateEmail">New Email:</label>
+				<input type="email" id="updateEmail" name="updateEmail" />
+				<button onclick="handleUpdateUser()">Update</button>
+				<button onclick="closeModal()">Cancel</button>
+			</div>
+		</div>
+
+		<script>
+			const BASE_URL = "https://springboot-server-szhf.onrender.com"
+			const openUserForm = () => (document.getElementById("userModal").style.display = "flex")
+			const openUpdateForm = () => (document.getElementById("updateModal").style.display = "flex")
+			const closeModal = () => {
+				document.getElementById("updateModal").style.display = "none"
+				document.getElementById("userModal").style.display = "none"
+			}
+
+			const handleGetUser = async () => {
+				const userId = prompt("Enter user ID:")
+				if (!userId) return
+
+				try {
+					let response = await fetch(`${BASE_URL}/users/${userId}`)
+					if (!response.ok) throw new Error("User not found")
+
+					let data = await response.json()
+					alert(`User Details:\nName: ${data.name}\nAge: ${data.age}\nEmail: ${data.email}`)
+				} catch (error) {
+					alert(error.message)
+				}
+			}
+
+			const handleGetUsers = async () => {
+				try {
+					let response = await fetch(`${BASE_URL}/users`)
+					let data = await response.json()
+					alert(JSON.stringify(data))
+				} catch (error) {
+					alert(error.message)
+				}
+			}
+
+			const handleAddUser = async () => {
+				const name = document.getElementById("userName").value
+				const age = document.getElementById("userAge").value
+				const email = document.getElementById("userEmail").value
+
+				if (!name || !age || !email) {
+					alert("All fields are required!")
+					return
+				}
+
+				const user = { name, age: parseInt(age), email }
+
+				try {
+					let response = await fetch(`${BASE_URL}/users`, {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify(user),
+					})
+
+					let data = await response.json()
+					alert("User added successfully!")
+					document.getElementById("userModal").style.display = "none"
+				} catch (error) {
+					alert(error.message)
+				}
+			}
+
+			const handleUpdateUser = async () => {
+				const id = document.getElementById("updateId").value
+				const name = document.getElementById("updateName").value
+				const age = document.getElementById("updateAge").value
+				const email = document.getElementById("updateEmail").value
+
+				if (!id || (!name && !age && !email)) {
+					alert("ID and at least one field to update are required!")
+					return
+				}
+
+				const user = { id, name, age: age ? parseInt(age) : null, email }
+
+				try {
+					let response = await fetch(`${BASE_URL}/users/${id}`, {
+						method: "PATCH",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify(user),
+					})
+
+					if (!response.ok) throw new Error("User not found or update failed")
+
+					let data = await response.json()
+					alert("User updated successfully!")
+					document.getElementById("updateModal").style.display = "none"
+				} catch (error) {
+					alert(error.message)
+				}
+			}
+
+			window.onclick = event => {
+				const userModal = document.getElementById("userModal")
+				const updateModal = document.getElementById("updateModal")
+				if (event.target == userModal) {
+					userModal.style.display = "none"
+				}
+				if (event.target == updateModal) {
+					updateModal.style.display = "none"
+				}
+			}
+		</script>
+	</body>
+</html>
