@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 public class UserController {
@@ -35,12 +36,6 @@ public class UserController {
         return ResponseEntity.notFound().build();
     }
 
-    @PostMapping("/users")
-    public ResponseEntity<User> postMethodName(@RequestBody User user) {
-        User newUser = userService.create(user);
-        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
-    }
-
     @GetMapping("/users/{id}")
     public ResponseEntity<User> getUser(@PathVariable int id) {
         Optional<User> user = userService.findById(id);
@@ -50,11 +45,26 @@ public class UserController {
         return ResponseEntity.notFound().build();
     }
 
-    @PatchMapping("/users/{id}")
+    @PostMapping("/users")
+    public ResponseEntity<User> postMethodName(@RequestBody User user) {
+        User newUser = userService.create(user);
+        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/users/{id}")
     public ResponseEntity<User> updateUser(@PathVariable int id, @RequestBody User user) {
-        Optional<User> updatedUser = userService.update(id, user);
+        Optional<User> updatedUser = userService.updateById(id, user);
         if (updatedUser.isPresent()) {
             return ResponseEntity.ok(updatedUser.get());
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @PatchMapping("/users/{id}")
+    public ResponseEntity<User> editUser(@PathVariable int id, @RequestBody User user) {
+        Optional<User> edittedUser = userService.editById(id, user);
+        if (edittedUser.isPresent()) {
+            return ResponseEntity.ok(edittedUser.get());
         }
         return ResponseEntity.notFound().build();
     }
@@ -67,5 +77,4 @@ public class UserController {
         }
         return ResponseEntity.notFound().build();
     }
-
 }

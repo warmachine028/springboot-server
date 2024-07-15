@@ -45,7 +45,25 @@ public class UserService {
         return newUser;
     }
 
-    public Optional<User> update(int id, User user) {
+    public Optional<User> updateById(int id, User user) {
+        Optional<User> existingUserOpt = findById(id);
+        if (existingUserOpt.isEmpty())
+            return Optional.empty();
+
+        int index = 0;
+        
+        for (User user_ : userList) {
+            if (user_.getId() == id) {
+                break;
+            }
+            index++;
+        }
+        
+        userList.set(index, user);
+        return Optional.of(existingUserOpt.get());
+    }
+
+    public Optional<User> editById(int id, User user) {
         Optional<User> existingUserOpt = findById(id);
         if (existingUserOpt.isEmpty())
             return Optional.empty();
@@ -65,7 +83,6 @@ public class UserService {
 
     public Optional<User> deleteById(int id) {
         Optional<User> existingUserOpt = findById(id);
-
         if (existingUserOpt.isEmpty())
             return Optional.empty();
 

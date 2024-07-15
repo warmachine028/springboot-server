@@ -25,15 +25,14 @@ body:
           label: Additional information
           description: Is there anything else we should know about this idea?
           value: |
-
-              ## **Make sure to read the [CONTRIBUTING](https://github.com/warmachine028/springboot-server/blob/main/CONTRIBUTING.md) and [SETUP](https://github.com/warmachine028/springboot-server/tree/main/rules) docs before proceeding**
+              ## **Make sure to read the [CONTRIBUTING](https://github.com/warmachine028/springboot-server/blob/main/CONTRIBUTING.md) before proceeding**
               ## Happy contributing. 💐
-              Star my other Repositories [here](https://github.com/warmachine028)
+              Star my other Repositories [here](https://github.com/warmachine028?tab=repositories)
       validations:
           required: false
     - type: markdown
       attributes:
           value: |
-              ## **Make sure to read the [CONTRIBUTING](https://github.com/warmachine028/springboot-server/blob/main/CONTRIBUTING.md) and [SETUP](https://github.com/warmachine028/springboot-server/tree/main/rules) docs before proceeding**
+              ## **Make sure to read the [CONTRIBUTING](https://github.com/warmachine028/springboot-server/blob/main/CONTRIBUTING.md) before proceeding**
               ## Happy contributing. 💐
               Star my other Repositories [here](https://github.com/warmachine028?tab=repositories)

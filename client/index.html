@@ -3,172 +3,12 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="shortcut icon" href="https://www.svgrepo.com/show/354380/spring-icon.svg" type="image/x-icon" />
+		<link rel="shortcut icon" href="https://www.svgrepo.com/show/354380/spring-icon.svg" type="image/svg" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet" />
 		<title>Spring Boot Client</title>
-		<style>
-			:root {
-				font-family: "Roboto", sans-serif;
-				background-color: #06141d;
-				--primary: #20b0f3;
-				--success: #05bb14;
-				--danger: #f32020;
-				--table-bg: #112233;
-				--table-header-bg: #334455;
-				--table-border: #556677;
-				--table-text: #ffffff;
-			}
-			body {
-				margin: 0px;
-			}
-			main {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				height: 100vh;
-				flex-direction: column;
-				color: white;
-				flex-wrap: wrap;
-			}
-			button {
-				width: 300px;
-				height: 50px;
-				background-color: var(--primary);
-				transition: ease-in-out 0.5s;
-				border-radius: 10px;
-				color: white;
-				font-size: larger;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				gap: 10px;
-			}
-			button:hover {
-				opacity: 70%;
-				border: 2px solid white;
-				display: flex;
-			}
-
-			.btn-group {
-				display: flex;
-				flex-direction: column;
-				gap: 10px;
-			}
-			.modal {
-				display: none;
-				position: fixed;
-				z-index: 1;
-				left: 0;
-				top: 0;
-				width: 100%;
-				height: 100%;
-				justify-content: center;
-				align-items: center;
-			}
-			.modal-content {
-				background-color: #fefefe;
-				color: black;
-				margin: auto;
-				padding: 20px;
-				border: 1px solid #888;
-				border-radius: 10px;
-				width: 80%;
-				max-width: 500px;
-				display: flex;
-				flex-direction: column;
-			}
-			.modal-content input {
-				margin: 5px 0;
-				padding: 10px;
-				border: 1px solid #ccc;
-				border-radius: 5px;
-				font-size: 16px;
-			}
-			.modal-content button {
-				border: none;
-				color: white;
-				cursor: pointer;
-				font-size: 16px;
-				margin: 5px 0;
-				width: 100%;
-			}
-			.modal-content button:nth-last-child(1) {
-				border: none;
-				background-color: var(--danger);
-				color: white;
-				cursor: pointer;
-				font-size: 16px;
-				margin: 5px 0;
-				width: 100%;
-			}
-			.modal-content button:hover {
-				opacity: 70%;
-			}
-			/* Table Styles */
-			table {
-				margin: 20px 0;
-				border-collapse: collapse;
-				min-width: 600px;
-				background-color: var(--table-bg);
-				color: var(--table-text);
-				border-radius: 10px;
-				overflow: hidden;
-			}
-			th {
-				background-color: var(--table-header-bg);
-			}
-			tr:nth-child(even) {
-				background-color: #223344;
-			}
-			tr:hover {
-				background-color: #445566;
-			}
-			th,
-			td {
-				padding: 10px;
-				text-align: left;
-			}
-			table,
-			th,
-			td {
-				border: 1px solid var(--table-border);
-			}
-			th,
-			td {
-				padding: 15px;
-				text-align: left;
-			}
-			td:last-child {
-				display: flex;
-				justify-content: center;
-				gap: 10px;
-			}
-			td:last-child {
-				border: 0px;
-				border-bottom: 1px solid var(--table-border);
-			}
-			footer {
-				width: 100%;
-				min-height: 100px;
-				background-color: var(--table-border);
-				display: flex;
-				align-items: center;
-				justify-content: center;
-			}
-			a {
-				color: var(--table-bg);
-			}
-			a:hover {
-				opacity: 80%;
-			}
-			.container {
-				display: flex;
-				gap: 30px;
-				align-items: center;
-			}
-		</style>
+		<link rel="stylesheet" href="styles.css" />
 	</head>
 	<body>
 		<main>
@@ -197,28 +37,40 @@
 				</div>
 			</div>
 			<div id="userModal" class="modal">
-				<form class="modal-content" onsubmit="handleAddUser()" onreset="closeModal()">
+				<form class="modal-content" onsubmit="handleAddUser(event)" onreset="closeModal()">
 					<label for="userName">Name:</label>
-					<input type="text" id="userName" name="userName" />
+					<input type="text" id="name" name="name" />
 					<label for="userAge">Age:</label>
-					<input type="number" id="userAge" name="userAge" />
+					<input type="text" inputmode="numeric" id="age" name="age" />
 					<label for="userEmail">Email:</label>
-					<input type="email" id="userEmail" name="userEmail" />
+					<input type="email" inputmode="email" id="email" name="email" />
 					<button type="submit">Submit</button>
 					<button type="reset">Cancel</button>
 				</form>
 			</div>
 			<div id="updateModal" class="modal">
-				<form class="modal-content" onsubmit="handleUpdateUser(this)" onreset="closeModal()">
-					<label for="updateId">User ID:</label>
-					<input type="text" id="updateId" name="updateId" required />
+				<form class="modal-content" onsubmit="handleUpdateUser(event)" onreset="closeModal()">
+					<label for="updateId">ID:</label>
+					<input type="text" id="updateId" name="id" required />
 					<label for="updateName">New Name:</label>
-					<input type="text" id="updateName" name="updateName" required />
+					<input type="text" id="updateName" name="name" required />
 					<label for="updateAge">New Age:</label>
-					<input type="number" id="updateAge" name="updateAge" required />
+					<input type="text" inputmode="numeric" id="updateAge" pattern="\d*" min="1" name="age" required />
 					<label for="updateEmail">New Email:</label>
-					<input type="email" id="updateEmail" name="updateEmail" required />
+					<input type="email" id="updateEmail" inputmode="email" name="email" required />
 					<button type="submit">Update</button>
+					<button type="reset">Cancel</button>
+				</form>
+			</div>
+			<div id="editModal" class="modal">
+				<form class="modal-content" onsubmit="handleEditUser(event)" onreset="closeModal()">
+					<label for="updateName">New Name:</label>
+					<input type="text" id="editName" name="name" />
+					<label for="updateAge">New Age:</label>
+					<input type="text" inputmode="numeric" id="editAge" pattern="\d*" min="1" name="age" />
+					<label for="updateEmail">New Email:</label>
+					<input type="email" id="editEmail" inputmode="email" name="email" />
+					<button type="submit">Edit</button>
 					<button type="reset">Cancel</button>
 				</form>
 			</div>
@@ -229,171 +81,6 @@
 				Made with <span>Java🍵</span> & <span>Spring Boot🌿</span>. Icons by <span><a href="https://icons8.com">Icons8</a>❤️</span>
 			</p>
 		</footer>
-		<script>
-			const BASE_URL = [
-				"http://localhost:8080", //! local
-				"https://springboot-server-szhf.onrender.com", // production
-			]
-			const API_URL = BASE_URL[1]
-			const userModal = document.getElementById("userModal")
-			const updateModal = document.getElementById("updateModal")
-			const openUserForm = () => (userModal.style.display = "flex")
-			const openUpdateForm = () => (updateModal.style.display = "flex")
-
-			const closeModal = () => {
-				userModal.style.display = "none"
-				updateModal.style.display = "none"
-			}
-
-			const handleGetUser = async () => {
-				const userId = prompt("Enter user ID:")
-				if (!userId) {
-					return
-				}
-
-				try {
-					let response = await fetch(`${API_URL}/users/${userId}`)
-					if (!response.ok) {
-						throw new Error("User not found with that id")
-					}
-
-					let data = await response.json()
-					alert(JSON.stringify(data))
-					// updateTable([data])
-				} catch (error) {
-					alert(error.message)
-				}
-			}
-
-			const handleGetUsers = async () => {
-				try {
-					let response = await fetch(`${API_URL}/users`)
-					let data = await response.json()
-					updateTable(data)
-				} catch (error) {
-					alert(error.message)
-				}
-			}
-
-			const handleAddUser = async () => {
-				const name = document.getElementById("userName").value
-				const age = document.getElementById("userAge").value
-				const email = document.getElementById("userEmail").value
-
-				if (!name || !age || !email) {
-					alert("All fields are required!")
-					return
-				}
-
-				const user = { name, age: parseInt(age), email }
-
-				try {
-					let response = await fetch(`${API_URL}/users`, {
-						method: "POST",
-						headers: { "Content-Type": "application/json" },
-						body: JSON.stringify(user),
-					})
-
-					let data = await response.json()
-					alert("User added successfully!")
-					document.getElementById("userModal").style.display = "none"
-					await handleGetUsers() // Refresh the user list
-				} catch (error) {
-					alert(error.message)
-				}
-			}
-
-			const handleUpdateUser = async event => {
-				console.log(event)
-				const id = document.getElementById("updateId").value
-				const name = document.getElementById("updateName").value
-				const age = document.getElementById("updateAge").value
-				const email = document.getElementById("updateEmail").value
-
-				if (!id || (!name && !age && !email)) {
-					return alert("ID and at least one field to update are required!")
-				}
-
-				const user = { id, name, age: age ? parseInt(age) : null, email }
-
-				try {
-					let response = await fetch(`${API_URL}/users/${id}`, {
-						method: "PATCH",
-						headers: { "Content-Type": "application/json" },
-						body: JSON.stringify(user),
-					})
-
-					if (!response.ok) {
-						throw new Error("User not found or update failed")
-					}
-
-					let data = await response.json()
-					alert("User updated successfully!")
-					updateModal.style.display = "none"
-					handleGetUsers() // Refresh the user list
-				} catch (error) {
-					alert(error.message)
-				}
-			}
-
-			const handleEditUser = async id => {
-				
-			}
-
-			const handleDeleteUser = async id => {
-				if (!confirm("Are you sure you want to delete this user?")) {
-					return
-				}
-
-				try {
-					let response = await fetch(`${API_URL}/users/${id}`, { method: "DELETE" })
-
-					if (!response.ok) {
-						throw new Error("User not found or delete failed")
-					}
-
-					alert("User deleted successfully!")
-					handleGetUsers()
-				} catch (error) {
-					alert(error.message)
-				}
-			}
-
-			const updateTable = users => {
-				const tbody = document.getElementById("userTable").getElementsByTagName("tbody")[0]
-				tbody.innerHTML = "" // Clear existing rows
-
-				users.forEach(user => {
-					const row = tbody.insertRow()
-					row.insertCell().textContent = user.id
-					row.insertCell().textContent = user.name
-					row.insertCell().textContent = user.age
-					row.insertCell().textContent = user.email
-					const actionsCell = row.insertCell()
-					const deleteButton = document.createElement("img")
-					deleteButton.width = 20
-					deleteButton.src = "https://img.icons8.com/?size=100&id=67884&format=png&color=f32020"
-					deleteButton.style.cursor = "pointer"
-					deleteButton.onclick = () => handleDeleteUser(user.id)
-					actionsCell.appendChild(deleteButton)
-
-					const editButton = document.createElement("img")
-					editButton.width = 20
-					editButton.src = "https://img.icons8.com/?size=100&id=71201&format=png&color=20b0f3"
-					editButton.style.cursor = "pointer"
-					editButton.onclick = () => handleEditUser(user.id)
-					actionsCell.appendChild(editButton)
-				})
-			}
-
-			window.onclick = event => {
-				if (event.target == userModal) {
-					userModal.style.display = "none"
-				}
-				if (event.target == updateModal) {
-					updateModal.style.display = "none"
-				}
-			}
-		</script>
+		<script src="script.js"></script>
 	</body>
 </html>

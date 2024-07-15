@@ -4,7 +4,7 @@
     <a href="https://warmachine028.github.io/springboot-server/client">
         <img width="200" src="https://www.svgrepo.com/show/354380/spring-icon.svg" alt="Springboot Server">
     </a>
-    <p style="font-family: roboto, calibri; font-size:12pt; font-style:italic"> A good one liner description here </p>
+    <p style="font-family: roboto, calibri; font-size:12pt; font-style:italic"> A Java REST API server to learn HTTP request-response in Java, demo project for Spring Boot </p>
     <a src="https://github.com/warmachine028/springboot-server/forks">
         <img alt="GitHub forks" src="https://img.shields.io/github/forks/warmachine028/springboot-server">
     </a>
