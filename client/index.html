@@ -12,18 +12,22 @@
 			:root {
 				font-family: "Roboto", sans-serif;
 				background-color: #06141d;
-				--primary: rgb(32, 176, 243);
-				--danger: rgb(243, 32, 32);
+				--primary: #20b0f3;
+				--success: #05bb14;
+				--danger: #f32020;
 				--table-bg: #112233;
 				--table-header-bg: #334455;
 				--table-border: #556677;
 				--table-text: #ffffff;
 			}
 			body {
+				margin: 0px;
+			}
+			main {
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				height: 100%;
+				height: 100vh;
 				flex-direction: column;
 				color: white;
 				flex-wrap: wrap;
@@ -36,28 +40,21 @@
 				border-radius: 10px;
 				color: white;
 				font-size: larger;
-				margin: 10px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				gap: 10px;
 			}
 			button:hover {
 				opacity: 70%;
 				border: 2px solid white;
+				display: flex;
 			}
-			table {
-				margin: 20px 0;
-				border-collapse: collapse;
-				width: 80%;
-				max-width: 600px;
-				overflow-x: auto;
-			}
-			table,
-			th,
-			td {
-				border: 1px solid white;
-			}
-			th,
-			td {
-				padding: 10px;
-				text-align: left;
+
+			.btn-group {
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
 			}
 			.modal {
 				display: none;
@@ -109,15 +106,29 @@
 			.modal-content button:hover {
 				opacity: 70%;
 			}
+			/* Table Styles */
 			table {
 				margin: 20px 0;
 				border-collapse: collapse;
-				width: 80%;
-				max-width: 600px;
+				min-width: 600px;
 				background-color: var(--table-bg);
 				color: var(--table-text);
 				border-radius: 10px;
 				overflow: hidden;
+			}
+			th {
+				background-color: var(--table-header-bg);
+			}
+			tr:nth-child(even) {
+				background-color: #223344;
+			}
+			tr:hover {
+				background-color: #445566;
+			}
+			th,
+			td {
+				padding: 10px;
+				text-align: left;
 			}
 			table,
 			th,
@@ -129,95 +140,126 @@
 				padding: 15px;
 				text-align: left;
 			}
-			th {
-				background-color: var(--table-header-bg);
-			}
-			tr:nth-child(even) {
-				background-color: #223344;
-			}
-			tr:hover {
-				background-color: #445566;
-			}
-			table td:last-child {
+			td:last-child {
 				display: flex;
 				justify-content: center;
-
-
+				gap: 10px;
+			}
+			td:last-child {
+				border: 0px;
+				border-bottom: 1px solid var(--table-border);
+			}
+			footer {
+				width: 100%;
+				min-height: 100px;
+				background-color: var(--table-border);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			a {
+				color: var(--table-bg);
+			}
+			a:hover {
+				opacity: 80%;
+			}
+			.container {
+				display: flex;
+				gap: 30px;
+				align-items: center;
 			}
 		</style>
 	</head>
 	<body>
-		<button onclick="handleGetUser()">Get User</button>
-		<button onclick="handleGetUsers()">Get Users</button>
-		<button onclick="openUserForm()">Add User</button>
-		<button onclick="openUpdateForm()">Update User</button>
+		<main>
+			<h2>Java Spring Boot Client</h2>
+			<div class="container">
+				<table id="userTable">
+					<thead>
+						<tr>
+							<th>User ID</th>
+							<th>Name</th>
+							<th>Age</th>
+							<th>Email</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- User data will be inserted here -->
+					</tbody>
+				</table>
 
-		<table id="userTable">
-			<thead>
-				<tr>
-					<th>User ID</th>
-					<th>Name</th>
-					<th>Age</th>
-					<th>Email</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				<!-- User data will be inserted here -->
-			</tbody>
-		</table>
-
-		<div id="userModal" class="modal">
-			<div class="modal-content">
-				<label for="userName">Name:</label>
-				<input type="text" id="userName" name="userName" />
-				<label for="userAge">Age:</label>
-				<input type="number" id="userAge" name="userAge" />
-				<label for="userEmail">Email:</label>
-				<input type="email" id="userEmail" name="userEmail" />
-				<button onclick="handleAddUser()">Submit</button>
-				<button onclick="closeModal()">Cancel</button>
+				<div class="btn-group">
+					<button onclick="handleGetUsers()"><img src="https://img.icons8.com?id=101316&format=png&color=ffffff" width="24" alt="update" /> Get All Users</button>
+					<button onclick="handleGetUser()"><img src="https://img.icons8.com?id=82751&format=png&color=ffffff" width="24" alt="update" /> Get Specific User</button>
+					<button onclick="openUserForm()"><img src="https://img.icons8.com?id=24717&format=png&color=ffffff" width="24" alt="update" /> Create User</button>
+					<button onclick="openUpdateForm()"><img src="https://img.icons8.com?id=21866&format=png&color=ffffff" width="20" alt="update" /> Update User</button>
+				</div>
 			</div>
-		</div>
-
-		<div id="updateModal" class="modal">
-			<div class="modal-content">
-				<label for="updateId">User ID:</label>
-				<input type="text" id="updateId" name="updateId" required />
-				<label for="updateName">New Name:</label>
-				<input type="text" id="updateName" name="updateName" />
-				<label for="updateAge">New Age:</label>
-				<input type="number" id="updateAge" name="updateAge" />
-				<label for="updateEmail">New Email:</label>
-				<input type="email" id="updateEmail" name="updateEmail" />
-				<button onclick="handleUpdateUser()">Update</button>
-				<button onclick="closeModal()">Cancel</button>
+			<div id="userModal" class="modal">
+				<form class="modal-content" onsubmit="handleAddUser()" onreset="closeModal()">
+					<label for="userName">Name:</label>
+					<input type="text" id="userName" name="userName" />
+					<label for="userAge">Age:</label>
+					<input type="number" id="userAge" name="userAge" />
+					<label for="userEmail">Email:</label>
+					<input type="email" id="userEmail" name="userEmail" />
+					<button type="submit">Submit</button>
+					<button type="reset">Cancel</button>
+				</form>
 			</div>
-		</div>
+			<div id="updateModal" class="modal">
+				<form class="modal-content" onsubmit="handleUpdateUser(this)" onreset="closeModal()">
+					<label for="updateId">User ID:</label>
+					<input type="text" id="updateId" name="updateId" required />
+					<label for="updateName">New Name:</label>
+					<input type="text" id="updateName" name="updateName" required />
+					<label for="updateAge">New Age:</label>
+					<input type="number" id="updateAge" name="updateAge" required />
+					<label for="updateEmail">New Email:</label>
+					<input type="email" id="updateEmail" name="updateEmail" required />
+					<button type="submit">Update</button>
+					<button type="reset">Cancel</button>
+				</form>
+			</div>
+		</main>
 
+		<footer>
+			<p>
+				Made with <span>Java🍵</span> & <span>Spring Boot🌿</span>. Icons by <span><a href="https://icons8.com">Icons8</a>❤️</span>
+			</p>
+		</footer>
 		<script>
 			const BASE_URL = [
 				"http://localhost:8080", //! local
 				"https://springboot-server-szhf.onrender.com", // production
 			]
 			const API_URL = BASE_URL[1]
-			const openUserForm = () => (document.getElementById("userModal").style.display = "flex")
-			const openUpdateForm = () => (document.getElementById("updateModal").style.display = "flex")
+			const userModal = document.getElementById("userModal")
+			const updateModal = document.getElementById("updateModal")
+			const openUserForm = () => (userModal.style.display = "flex")
+			const openUpdateForm = () => (updateModal.style.display = "flex")
+
 			const closeModal = () => {
-				document.getElementById("updateModal").style.display = "none"
-				document.getElementById("userModal").style.display = "none"
+				userModal.style.display = "none"
+				updateModal.style.display = "none"
 			}
 
 			const handleGetUser = async () => {
 				const userId = prompt("Enter user ID:")
-				if (!userId) return
+				if (!userId) {
+					return
+				}
 
 				try {
 					let response = await fetch(`${API_URL}/users/${userId}`)
-					if (!response.ok) throw new Error("User not found")
+					if (!response.ok) {
+						throw new Error("User not found with that id")
+					}
 
 					let data = await response.json()
-					updateTable([data])
+					alert(JSON.stringify(data))
+					// updateTable([data])
 				} catch (error) {
 					alert(error.message)
 				}
@@ -255,21 +297,21 @@
 					let data = await response.json()
 					alert("User added successfully!")
 					document.getElementById("userModal").style.display = "none"
-					handleGetUsers() // Refresh the user list
+					await handleGetUsers() // Refresh the user list
 				} catch (error) {
 					alert(error.message)
 				}
 			}
 
-			const handleUpdateUser = async () => {
+			const handleUpdateUser = async event => {
+				console.log(event)
 				const id = document.getElementById("updateId").value
 				const name = document.getElementById("updateName").value
 				const age = document.getElementById("updateAge").value
 				const email = document.getElementById("updateEmail").value
 
 				if (!id || (!name && !age && !email)) {
-					alert("ID and at least one field to update are required!")
-					return
+					return alert("ID and at least one field to update are required!")
 				}
 
 				const user = { id, name, age: age ? parseInt(age) : null, email }
@@ -281,30 +323,37 @@
 						body: JSON.stringify(user),
 					})
 
-					if (!response.ok) throw new Error("User not found or update failed")
+					if (!response.ok) {
+						throw new Error("User not found or update failed")
+					}
 
 					let data = await response.json()
 					alert("User updated successfully!")
-					document.getElementById("updateModal").style.display = "none"
+					updateModal.style.display = "none"
 					handleGetUsers() // Refresh the user list
 				} catch (error) {
 					alert(error.message)
 				}
 			}
 
-			const handleDeleteUser = async (id) => {
-				const confirmDelete = confirm("Are you sure you want to delete this user?")
-				if (!confirmDelete) return
+			const handleEditUser = async id => {
+				
+			}
+
+			const handleDeleteUser = async id => {
+				if (!confirm("Are you sure you want to delete this user?")) {
+					return
+				}
 
 				try {
-					let response = await fetch(`${API_URL}/users/${id}`, {
-						method: "DELETE",
-					})
+					let response = await fetch(`${API_URL}/users/${id}`, { method: "DELETE" })
 
-					if (!response.ok) throw new Error("User not found or delete failed")
+					if (!response.ok) {
+						throw new Error("User not found or delete failed")
+					}
 
 					alert("User deleted successfully!")
-					handleGetUsers() // Refresh the user list
+					handleGetUsers()
 				} catch (error) {
 					alert(error.message)
 				}
@@ -323,16 +372,21 @@
 					const actionsCell = row.insertCell()
 					const deleteButton = document.createElement("img")
 					deleteButton.width = 20
-					deleteButton.srcset ="https://img.icons8.com/?size=256&id=68064&format=png" 
-					deleteButton.style = "filter: invert(40%) sepia(9%) saturate(4422%) hue-rotate(316deg) brightness(113%) contrast(105%); cursor:pointer;"
+					deleteButton.src = "https://img.icons8.com/?size=100&id=67884&format=png&color=f32020"
+					deleteButton.style.cursor = "pointer"
 					deleteButton.onclick = () => handleDeleteUser(user.id)
 					actionsCell.appendChild(deleteButton)
+
+					const editButton = document.createElement("img")
+					editButton.width = 20
+					editButton.src = "https://img.icons8.com/?size=100&id=71201&format=png&color=20b0f3"
+					editButton.style.cursor = "pointer"
+					editButton.onclick = () => handleEditUser(user.id)
+					actionsCell.appendChild(editButton)
 				})
 			}
 
 			window.onclick = event => {
-				const userModal = document.getElementById("userModal")
-				const updateModal = document.getElementById("updateModal")
 				if (event.target == userModal) {
 					userModal.style.display = "none"
 				}
