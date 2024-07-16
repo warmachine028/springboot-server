@@ -8,12 +8,14 @@ on:
       - 'client/**'
 
 jobs:
-  take-snapshot:
+  update-preview:
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@main
+
+    - name: Give Permissions
+      run: git update-index --chmod=+x ./.github/update-preview.sh # if this line gives error, then run it locally
 
     - name: Set up Node.js
       uses: actions/setup-node@v4
@@ -31,6 +33,6 @@ jobs:
       shell: bash
 
     - name: Push Changes
-      uses: .github/actions/push-changes@main
+      uses: ./.github/actions/push-changes
       with:
          mesasage:  'feat: updated preview in README.md'
