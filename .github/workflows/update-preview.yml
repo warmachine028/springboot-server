@@ -23,7 +23,7 @@ jobs:
       run: npm install puppeteer
 
     - name: Take snapshot
-      run: node .github/take-snapshot.js
+      run: node .github/take-snapshot.mjs
       
 
     - name: Push Changes
