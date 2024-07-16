@@ -10,4 +10,4 @@ const takeSnapShot = async () => {
   await browser.close();
 };
 
-await takeSnapShot();
+takeSnapShot();
