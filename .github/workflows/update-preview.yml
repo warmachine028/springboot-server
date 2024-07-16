@@ -29,5 +29,5 @@ jobs:
     - name: Push Changes
       uses: ./.github/actions/push-changes
       with:
-        message:  'feat: updated preview in README.md'
-        paths: './github/preview.png'
+        message: 'feat: updated preview in README.md'
+        paths: '.github/preview.png'
