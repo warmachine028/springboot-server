@@ -22,13 +22,13 @@ jobs:
       run: npm install puppeteer
 
     - name: Take snapshot
-      run: node take-snapshot.js
+      run: node .github/take-snapshot.js
 
     - name: Commit and push snapshot
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add snapshot.png
+        git add .github/snapshot.png
         git commit -m 'Add snapshot of deployed site'
         git push
 
