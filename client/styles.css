@@ -142,12 +142,14 @@ footer {
 	width: 100%;
 	min-height: 100px;
 	background-color: var(--table-border);
+	color: white;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
 a {
-	color: var(--table-bg);
+	color: #ccc;
+	font-family:'Times New Roman', Times, serif;
 }
 a:hover {
 	opacity: 80%;

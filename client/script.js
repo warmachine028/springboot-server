@@ -1,3 +1,17 @@
+window.onclick = event => {
+    if (event.target == userModal) {
+        userModal.style.display = "none"
+    }
+    if (event.target == updateModal) {
+        updateModal.style.display = "none"
+    }
+    if (event.target == editModal) {
+        editModal.style.display = "none"
+    }
+}
+window.onload = () => handleGetUsers(); // Fetch users on page load
+
+
 const BASE_URL = [
     "http://localhost:8080", //! local
     "https://springboot-server-szhf.onrender.com", //? production
@@ -196,14 +210,3 @@ const updateTable = users => {
     })
 }
 
-window.onclick = event => {
-    if (event.target == userModal) {
-        userModal.style.display = "none"
-    }
-    if (event.target == updateModal) {
-        updateModal.style.display = "none"
-    }
-    if (event.target == editModal) {
-        editModal.style.display = "none"
-    }
-}
