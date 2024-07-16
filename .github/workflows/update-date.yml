@@ -20,12 +20,13 @@ jobs:
         run: git update-index --chmod=+x ./.github/update-date.sh # if this line gives error, then run it locally
 
       - name: Update Files
-        run: ./.github/workflows/update-date.sh
+        run: .github/workflows/update-date.sh
         shell: bash
       
-      - name: Update Date
-        uses: ./.github/actions/push-changes
+      - name: Push Changes
+        uses: .github/actions/push-changes@main
+        if: ${{ '<!-- `date "+%d/%m/%y"` -->' != '`tail -n 1 README.md`' }}
         with:
-          message: 'feat: snapshot of deployed site'
+          message: 'feat: updated date in README.md'
 
         
