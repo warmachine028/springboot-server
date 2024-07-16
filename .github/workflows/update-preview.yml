@@ -28,11 +28,9 @@ jobs:
     - name: Take snapshot
       run: node .github/take-snapshot.js
       
-    - name: Update README
-      run: .github/update-preview.sh
-      shell: bash
 
     - name: Push Changes
       uses: ./.github/actions/push-changes
       with:
-         message:  'feat: updated preview in README.md'
+        message:  'feat: updated preview in README.md'
+        paths: './github/preview.png'

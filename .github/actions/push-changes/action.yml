@@ -1,9 +1,13 @@
 name: Push changes
-description: A reusable action to push changes with a specified commit message
+description: A reusable action to push changes with a specified commit message and file paths
 inputs:
   message:
     description: Commit message
     required: true
+  paths:
+    description: File paths to add
+    required: false
+    default: '.'
 runs:
   using: 'composite'
   steps:
@@ -12,5 +16,5 @@ runs:
       with:
         committer_name: 'GitHub Actions'
         committer_email: 'actions@github.com'
-        add: '.'
+        add: ${{ inputs.paths }}
         message: '${{ inputs.message }}'
