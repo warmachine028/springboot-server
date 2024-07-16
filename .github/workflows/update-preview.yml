@@ -35,4 +35,4 @@ jobs:
     - name: Push Changes
       uses: ./.github/actions/push-changes
       with:
-         mesasage:  'feat: updated preview in README.md'
+         message:  'feat: updated preview in README.md'
