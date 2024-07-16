@@ -22,12 +22,13 @@ const updateModal = document.getElementById("updateModal")
 const editModal = document.getElementById("editModal")
 const openUserForm = () => (userModal.style.display = "flex")
 const openUpdateForm = () => (updateModal.style.display = "flex")
-const openEditForm = (id) => {
-    const input = document.createElement('input')
-    input.id = '#editId'
-    input.value = id
-    // editModal.getElementsByClassName('modal-content')[0].appendChild(input)
-    input.style.display = "none"
+const openEditForm = (user) => {
+    document.getElementById("userId").textContent = user.id;
+    document.getElementById("editName").value = user.name;
+    document.getElementById("editAge").value = user.age;
+    document.getElementById("editEmail").value = user.email;
+
+    const editModal = document.getElementById("editModal");
     editModal.style.display = "flex";
 
 }
@@ -35,6 +36,7 @@ const openEditForm = (id) => {
 const closeModal = () => {
     userModal.style.display = "none"
     updateModal.style.display = "none"
+    editModal.style.display = "none"
 }
 
 const handleGetUser = async () => {
@@ -122,47 +124,56 @@ const handleUpdateUser = async (event) => {
         await response.json()
         alert("User updated successfully!")
         updateModal.style.display = "none"
-        handleGetUsers() //* Refresh the user list
+        await handleGetUsers() //* Refresh the user list
     } catch (error) {
         alert(error.message)
     }
 }
 
 const handleEditUser = async (event) => {
-    event.preventDefault()
-    const idElement = document.getElementById("editId")
+    event.preventDefault();
 
-    const id = idElement.value
-    const name = document.getElementById("editName").value
-    const age = document.getElementById("editAge").value
-    const email = document.getElementById("editEmail").value
+    const id = document.getElementById("userId").textContent;
+    const name = event.target.name.value.trim();
+    const age = event.target.age.value.trim();
+    const email = event.target.email.value.trim();
 
+    // Validation for ID and at least one field to update
     if (!id || (!name && !age && !email)) {
-        return alert("ID and at least one field to update are required!")
+        return alert("ID and at least one field to update are required!");
     }
 
-    const user = { id, name, age: age ? parseInt(age) : null, email }
+    // Create updated user object
+    const user = {
+        id,
+        name: name || undefined,  // Set to undefined if not provided
+        age: age ? parseInt(age) : undefined,  // Set to undefined if not provided
+        email: email || undefined,  // Set to undefined if not provided
+    };
 
     try {
+        // Make the API request to update the user
         let response = await fetch(`${API_URL}/users/${id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(user),
-        })
+        });
 
         if (!response.ok) {
-            throw new Error("User not found or update failed")
+            throw new Error("User not found or update failed");
         }
 
-        await response.json()
-        alert("User editted successfully!")
-        idElement.parentNode.removeChild(idElement)
-        editModal.style.display = "none"
-        handleGetUsers() //* Refresh the user list
+        await response.json();
+        alert("User edited successfully!");
+
+        // Optionally refresh the table and close the modal
+        closeModal();
+        await handleGetUsers(); // Refresh the user list
     } catch (error) {
-        alert(error.message)
+        alert(error.message);
     }
-}
+};
+
 
 const handleDeleteUser = async id => {
     if (!confirm("Are you sure you want to delete this user?")) {
@@ -177,7 +188,7 @@ const handleDeleteUser = async id => {
         }
 
         alert("User deleted successfully!")
-        handleGetUsers()
+        await handleGetUsers()
     } catch (error) {
         alert(error.message)
     }
@@ -205,7 +216,7 @@ const updateTable = users => {
         editButton.width = 20
         editButton.src = "https://img.icons8.com/?size=100&id=71201&format=png&color=20b0f3"
         editButton.style.cursor = "pointer"
-        editButton.onclick = () => openEditForm(user.id)
+        editButton.onclick = () => openEditForm(user)
         actionsCell.appendChild(editButton)
     })
 }

@@ -11,12 +11,14 @@
 }
 body {
 	margin: 0px;
+	position: relative;
+	height: 100vh;
 }
 main {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 100vh;
+	padding: 100px 0;
 	flex-direction: column;
 	color: white;
 	flex-wrap: wrap;
@@ -146,6 +148,8 @@ footer {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	position: absolute;
+	bottom: 0;
 }
 a {
 	color: #ccc;
