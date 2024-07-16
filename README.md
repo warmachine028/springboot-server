@@ -42,6 +42,7 @@
 ![line]
 
 ## Preview
+![Snapshot](.github/preview.png)
 ![Snapshot](snapshot.png)
 
 ![line]
