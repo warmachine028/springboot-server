@@ -42,6 +42,7 @@
 ![line]
 
 ## Preview
+![Snapshot](snapshot.png)
 
 ![line]
 
