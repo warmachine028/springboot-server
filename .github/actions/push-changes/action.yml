@@ -1,0 +1,16 @@
+name: Push changes
+description: A reusable action to push changes with a specified commit message
+inputs:
+  message:
+    description: Commit message
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - name: Push changes
+      uses: EndBug/add-and-commit@v9
+      with:
+        committer_name: 'GitHub Actions'
+        committer_email: 'actions@github.com'
+        add: '.'
+        message: '${{ inputs.message }}'
