@@ -6,7 +6,7 @@ const takeSnapShot = async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto(url);
-  await page.screenshot({ path: 'snapshot.png' });
+  await page.screenshot({ path: '.github/preview.png' });
   await browser.close();
 };
 
