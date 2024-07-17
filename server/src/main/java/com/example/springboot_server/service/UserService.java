@@ -12,10 +12,10 @@ import com.example.springboot_server.api.models.User;
 @Service
 public class UserService {
 
-    private List<User> userList;
+    private List<User> users;
 
     public UserService() {
-        userList = new ArrayList<>(
+        users = new ArrayList<>(
                 Arrays.asList(
                         new User(1, "Ida", 32, "ida@gmail.com"),
                         new User(2, "John", 25, "john@gmail.com"),
@@ -28,20 +28,25 @@ public class UserService {
 
     public Optional<User> findById(int id) {
         Optional<User> optional = Optional.empty();
-        for (User user : userList)
+        for (User user : users)
             if (id == user.getId())
                 optional = Optional.of(user);
         return optional;
     }
 
-    public Optional<List<User>> find() {
-        return Optional.of(userList);
+    public List<User> find() {
+        return users;
+    }
+
+    public List<User> deleteMany() {
+        users.clear();
+        return users;
     }
 
     public User create(User user) {
-        int id = userList.isEmpty() ? 1 : userList.get(userList.size() - 1).getId() + 1;
+        int id = users.isEmpty() ? 1 : users.get(users.size() - 1).getId() + 1;
         User newUser = new User(id, user.getName(), user.getAge(), user.getEmail());
-        userList.add(newUser);
+        users.add(newUser);
         return newUser;
     }
 
@@ -51,15 +56,15 @@ public class UserService {
             return Optional.empty();
 
         int index = 0;
-        
-        for (User user_ : userList) {
+
+        for (User user_ : users) {
             if (user_.getId() == id) {
                 break;
             }
             index++;
         }
-        
-        userList.set(index, user);
+
+        users.set(index, user);
         return Optional.of(existingUserOpt.get());
     }
 
@@ -87,7 +92,7 @@ public class UserService {
             return Optional.empty();
 
         User existingUser = existingUserOpt.get();
-        userList.remove(existingUser);
+        users.remove(existingUser);
 
         return Optional.of(existingUser);
     }

@@ -30,10 +30,14 @@ public class UserController {
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> getUsers() {
-        Optional<List<User>> users = userService.find();
-        if (users.isPresent())
-            return ResponseEntity.ok(users.get());
-        return ResponseEntity.notFound().build();
+        List<User> users = userService.find();
+        return ResponseEntity.ok(users);
+    }
+
+    @DeleteMapping("/users")
+    public ResponseEntity<List<User>> deleteUsers() {
+        List<User> users = userService.deleteMany();
+        return ResponseEntity.ok(users);
     }
 
     @GetMapping("/users/{id}")
