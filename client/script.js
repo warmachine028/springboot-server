@@ -16,7 +16,7 @@ const BASE_URL = [
     "http://localhost:8080", //! local
     "https://springboot-server-szhf.onrender.com", //? production
 ]
-const API_URL = BASE_URL[1]
+const API_URL = BASE_URL[0]
 const userModal = document.getElementById("userModal")
 const updateModal = document.getElementById("updateModal")
 const editModal = document.getElementById("editModal")
@@ -30,7 +30,6 @@ const openEditForm = (user) => {
 
     const editModal = document.getElementById("editModal");
     editModal.style.display = "flex";
-
 }
 
 const closeModal = () => {
@@ -38,6 +37,36 @@ const closeModal = () => {
     updateModal.style.display = "none"
     editModal.style.display = "none"
 }
+
+const updateTable = users => {
+    const tbody = document.getElementById("userTable").getElementsByTagName("tbody")[0]
+    tbody.innerHTML = "" // Clear existing rows
+
+    users.forEach(user => {
+        const row = tbody.insertRow()
+        row.insertCell().textContent = user.id
+        row.insertCell().textContent = user.name
+        row.insertCell().textContent = user.age
+        row.insertCell().textContent = user.email
+        const actionsCell = row.insertCell()
+
+        const deleteButton = document.createElement("img")
+        deleteButton.width = 20
+        deleteButton.src = "https://img.icons8.com/?size=100&id=67884&format=png&color=f32020"
+        deleteButton.style.cursor = "pointer"
+        deleteButton.onclick = () => handleDeleteUser(user.id)
+        actionsCell.appendChild(deleteButton)
+
+        const editButton = document.createElement("img")
+        editButton.width = 20
+        editButton.src = "https://img.icons8.com/?size=100&id=71201&format=png&color=20b0f3"
+        editButton.style.cursor = "pointer"
+        editButton.onclick = () => openEditForm(user)
+        actionsCell.appendChild(editButton)
+    })
+}
+
+
 
 const handleGetUser = async () => {
     const userId = prompt("Enter user ID:")
@@ -174,7 +203,6 @@ const handleEditUser = async (event) => {
     }
 };
 
-
 const handleDeleteUser = async id => {
     if (!confirm("Are you sure you want to delete this user?")) {
         return
@@ -194,31 +222,16 @@ const handleDeleteUser = async id => {
     }
 }
 
-const updateTable = users => {
-    const tbody = document.getElementById("userTable").getElementsByTagName("tbody")[0]
-    tbody.innerHTML = "" // Clear existing rows
+const handleDeleteUsers = async () => {
+    if (!confirm("Are you sure you want to delete all the users?")) {
+        return
+    }
+    try {
+        await fetch(`${API_URL}/users`, { method: "DELETE" })
 
-    users.forEach(user => {
-        const row = tbody.insertRow()
-        row.insertCell().textContent = user.id
-        row.insertCell().textContent = user.name
-        row.insertCell().textContent = user.age
-        row.insertCell().textContent = user.email
-        const actionsCell = row.insertCell()
-        
-        const deleteButton = document.createElement("img")
-        deleteButton.width = 20
-        deleteButton.src = "https://img.icons8.com/?size=100&id=67884&format=png&color=f32020"
-        deleteButton.style.cursor = "pointer"
-        deleteButton.onclick = () => handleDeleteUser(user.id)
-        actionsCell.appendChild(deleteButton)
-
-        const editButton = document.createElement("img")
-        editButton.width = 20
-        editButton.src = "https://img.icons8.com/?size=100&id=71201&format=png&color=20b0f3"
-        editButton.style.cursor = "pointer"
-        editButton.onclick = () => openEditForm(user)
-        actionsCell.appendChild(editButton)
-    })
+        alert("All Users deleted successfully!")
+        await handleGetUsers()
+    } catch (error) {
+        alert(error.message)
+    }
 }
-
