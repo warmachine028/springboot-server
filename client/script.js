@@ -16,7 +16,7 @@ const BASE_URL = [
     "http://localhost:8080", //! local
     "https://springboot-server-szhf.onrender.com", //? production
 ]
-const API_URL = BASE_URL[0]
+const API_URL = BASE_URL[1]
 const userModal = document.getElementById("userModal")
 const updateModal = document.getElementById("updateModal")
 const editModal = document.getElementById("editModal")
