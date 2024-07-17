@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class HomeController {
     @CrossOrigin
     @GetMapping("/")
-    public ResponseEntity<String> Home() {
+    public ResponseEntity<String> home() {
         return ResponseEntity.ok("Hello From Spring-boot Server");
     }
 }

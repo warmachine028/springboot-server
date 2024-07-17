@@ -11,29 +11,37 @@
 		<link rel="stylesheet" href="styles.css" />
 	</head>
 	<body>
+		<nav>
+			<a href="#">
+				<img src="https://www.svgrepo.com/show/354380/spring-icon.svg" width="30" alt="logo" />
+				<h2>Spring Boot Client</h2>
+			</a>
+		</nav>
 		<main>
-			<h2>Java Spring Boot Client</h2>
 			<div class="container">
-				<table id="userTable">
-					<thead>
-						<tr>
-							<th>User ID</th>
-							<th>Name</th>
-							<th>Age</th>
-							<th>Email</th>
-							<th>Actions</th>
-						</tr>
-					</thead>
-					<tbody>
-						<!-- User data will be inserted here -->
-					</tbody>
-				</table>
+				<div class="table-container">
+					<table id="userTable">
+						<thead>
+							<tr>
+								<th>User ID</th>
+								<th>Name</th>
+								<th>Age</th>
+								<th>Email</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- User data will be inserted here -->
+						</tbody>
+					</table>
+				</div>
 
 				<div class="btn-group">
-					<button onclick="handleGetUsers()"><img src="https://img.icons8.com?id=101316&format=png&color=ffffff" width="24" alt="update" /> Get All Users</button>
-					<button onclick="handleGetUser()"><img src="https://img.icons8.com?id=82751&format=png&color=ffffff" width="24" alt="update" /> Get Specific User</button>
-					<button onclick="openUserForm()"><img src="https://img.icons8.com?id=24717&format=png&color=ffffff" width="24" alt="update" /> Create User</button>
-					<button onclick="openUpdateForm()"><img src="https://img.icons8.com?id=21866&format=png&color=ffffff" width="20" alt="update" /> Update User</button>
+					<button type="button" onclick="handleGetUsers()"><img src="https://img.icons8.com?id=101316&format=png&color=ffffff" width="24" alt="get-all" /> Get All</button>
+					<button type="button" onclick="handleGetUser()"><img src="https://img.icons8.com?id=82751&format=png&color=ffffff" width="24" alt="get-one" /> Get By Id</button>
+					<button type="button" onclick="openUserForm()"><img src="https://img.icons8.com?id=24717&format=png&color=ffffff" width="24" alt="create" /> Create</button>
+					<button type="button" onclick="openUpdateForm()"><img src="https://img.icons8.com?id=21866&format=png&color=ffffff" width="20" alt="update" /> Update</button>
+					<button type="button" onclick="handleDeleteUsers()"><img src="https://img.icons8.com/?id=67884&format=png&color=ffffff" width="20" alt="delete" /> Delete All</button>
 				</div>
 			</div>
 			<div id="userModal" class="modal">

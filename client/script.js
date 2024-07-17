@@ -205,6 +205,7 @@ const updateTable = users => {
         row.insertCell().textContent = user.age
         row.insertCell().textContent = user.email
         const actionsCell = row.insertCell()
+        
         const deleteButton = document.createElement("img")
         deleteButton.width = 20
         deleteButton.src = "https://img.icons8.com/?size=100&id=67884&format=png&color=f32020"
