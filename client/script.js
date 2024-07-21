@@ -52,7 +52,7 @@ const updateTable = users => {
 
         const deleteButton = document.createElement("img")
         deleteButton.width = 20
-        deleteButton.src = "https://img.icons8.com/?size=100&id=67884&format=png&color=f32020"
+        deleteButton.src = "https://img.icons8.com/?size=100&id=67884&format=png&color=f32020"j
         deleteButton.style.cursor = "pointer"
         deleteButton.onclick = () => handleDeleteUser(user.id)
         actionsCell.appendChild(deleteButton)
@@ -96,6 +96,11 @@ const handleGetUsers = async () => {
         alert(error.message)
     }
 }
+const resetForm = () => {
+    document.getElementById("name").value = "";
+    document.getElementById("age").value = "";
+    document.getElementById("email").value = "";
+}
 
 const handleAddUser = async (event) => {
     event.preventDefault()
@@ -124,6 +129,7 @@ const handleAddUser = async (event) => {
     } catch (error) {
         alert(error.message)
     }
+    resetForm()
 }
 
 const handleUpdateUser = async (event) => {

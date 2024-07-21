@@ -49,7 +49,7 @@
 					<label for="userName">Name:</label>
 					<input type="text" id="name" name="name" />
 					<label for="userAge">Age:</label>
-					<input type="text" inputmode="numeric" id="age" name="age" />
+					<input type="text" inputmode="numeric" id="age" pattern="\d*" min="13" max="78" name="age" />
 					<label for="userEmail">Email:</label>
 					<input type="email" inputmode="email" id="email" name="email" />
 					<button type="submit">Submit</button>
@@ -63,7 +63,7 @@
 					<label for="updateName">New Name:</label>
 					<input type="text" id="updateName" name="name" required />
 					<label for="updateAge">New Age:</label>
-					<input type="text" inputmode="numeric" id="updateAge" pattern="\d*" min="1" name="age" required />
+					<input type="text" inputmode="numeric" id="updateAge" pattern="\d*" min="13" max="78" name="age" required />
 					<label for="updateEmail">New Email:</label>
 					<input type="email" id="updateEmail" inputmode="email" name="email" required />
 					<button type="submit">Update</button>
@@ -76,7 +76,7 @@
 					<label for="updateName">New Name:</label>
 					<input type="text" id="editName" name="name" />
 					<label for="updateAge">New Age:</label>
-					<input type="text" inputmode="numeric" id="editAge" pattern="\d*" min="1" name="age" />
+					<input type="text" inputmode="numeric" id="editAge" pattern="\d*" min="13" max="78" name="age" />
 					<label for="updateEmail">New Email:</label>
 					<input type="email" id="editEmail" inputmode="email" name="email" />
 					<button type="submit">Edit</button>
@@ -86,8 +86,10 @@
 		</main>
 
 		<footer>
-			<p>
-				Made with <span>Java🍵</span> & <span>Spring Boot🌿</span>. Icons by <span><a href="https://icons8.com">Icons8</a>❤️</span>
+			<p style="position: relative;">
+				Made with <span>Java🍵</span> & <span>Spring Boot🌿</span>. Icons by <span><a href="https://icons8.com" target="_blank" rel="noopener noreferrer">Icons8</a>❤️.</span> Star my other projects <span><a href="https://github.com/warmachine028#-most-popular-open-source-repositories"
+					target="_blank" rel="noopener noreferrer" >here <img src="https://img.icons8.com/?id=bVGqATNwfhYq&format=png&color=000000" alt="github" width="25"
+					style="position: absolute;"></a></span>
 			</p>
 		</footer>
 		<script src="script.js"></script>
