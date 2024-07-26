@@ -52,7 +52,7 @@ const updateTable = users => {
 
         const deleteButton = document.createElement("img")
         deleteButton.width = 20
-        deleteButton.src = "https://img.icons8.com/?size=100&id=67884&format=png&color=f32020"j
+        deleteButton.src = "https://img.icons8.com/?size=100&id=67884&format=png&color=f32020"
         deleteButton.style.cursor = "pointer"
         deleteButton.onclick = () => handleDeleteUser(user.id)
         actionsCell.appendChild(deleteButton)
