@@ -8,7 +8,7 @@
 # ENTRYPOINT [ "mvn", "-f", ${PATH}, "spring-boot:run" ]
 
 FROM maven:3.9.8-eclipse-temurin-22 AS build
-LABEL MAINTAINER="pritam_k@pursuitsoftware.com"
+LABEL MAINTAINER="pritamkundu771@gmail.com"
 COPY server .
 RUN mvn clean install
 
