@@ -30,8 +30,8 @@ jobs:
                   distribution: 'corretto'
                   cache: maven
 
-            - name: Build with Maven
-              run: cd server && mvn package
+            # - name: Build with Maven
+            #   run: cd server && mvn package
             
             - name: Build with Maven 2
               run: cd server && ./mvnw package
