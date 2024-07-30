@@ -8,6 +8,6 @@ updates:
     # ignore Maven APIs/SPIs
     - dependency-name: org.apache.maven:*
 - package-ecosystem: "github-actions"
-  directory: "server"
+  directory: ".github"
   schedule:
-    interval: "daily"
+    interval: daily
