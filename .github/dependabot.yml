@@ -4,10 +4,12 @@ updates:
   directory: "server"
   schedule:
     interval: daily
+    time: "21:00"
   ignore:
     # ignore Maven APIs/SPIs
     - dependency-name: org.apache.maven:*
-- package-ecosystem: "github-actions"
+- package-ecosystem: github-actions
   directory: ".github"
   schedule:
     interval: daily
+    time: "21:00"
