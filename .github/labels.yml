@@ -38,9 +38,17 @@ filters:
     events: [pull_request]
     targets: [title]
 
-  # For Hacktoberfest only
-  - label: "hacktoberfest"
+    # For Dependabots
+  - label: "github_actions"
     regexs:
-      - /.*/
-    events: [ ] # events: [pull_request]
+      - /^chore.*/
+    events: [pull_request]
     targets: [title]
+
+    # For Hacktoberfest only
+    # - label: 'hacktoberfest'
+    #   regexs:
+    #       - /.*/
+    #   events: [pull_request]
+    #   targets: [title]
+
