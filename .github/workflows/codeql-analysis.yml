@@ -51,9 +51,7 @@ jobs:
 
             - name: Download Maven Wrapper jar
               if: matrix.language == 'java'
-              run: |
-                cat ./server/.mvn/wrapper/maven-wrapper.properties # testing for existence of file
-                ./server/mvnw.sh --version
+              run: cd server && ./mvnw.sh --version
 
             # Initializes the CodeQL tools for scanning.
             - name: Initialize CodeQL
