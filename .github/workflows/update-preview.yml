@@ -5,8 +5,8 @@ on:
     push:
         branches: [main]
         # enable this for your repository if you want to trigger this workflow to observe specific file/directory changes
-        # paths: 
-        #     - 'server/**'
+        paths: 
+            - 'client/**'
 
 jobs:
     update-preview:
