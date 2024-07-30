@@ -13,7 +13,8 @@ jobs:
               uses: actions/checkout@main
 
             - name: Give Permissions
-              run: git update-index --chmod=+x ./.github/update-date.sh # if this line gives error, then run it locally
+              # if this line gives error, then run it locally
+              run: git update-index --chmod=+x ./.github/update-date.sh
 
             - name: Update README
               run: .github/update-date.sh
