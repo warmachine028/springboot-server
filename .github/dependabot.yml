@@ -10,7 +10,3 @@ updates:
       schedule:
           interval: daily
           time: "21:00"
-      ignore:
-          # ignore Maven APIs/SPIs
-          - dependency-name: org.apache.maven:*
-
