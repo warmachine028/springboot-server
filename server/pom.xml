@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.example</groupId>
-	<artifactId>springboot-server</artifactId>
+	<artifactId>springboot_server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>springboot-server</name>
 	<description>Demo project for Spring Boot</description>
