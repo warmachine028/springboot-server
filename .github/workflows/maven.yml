@@ -39,5 +39,5 @@ jobs:
             - name: Update dependency graph
               uses: advanced-security/maven-dependency-submission-action@v4
               with:
-                directory: ..
+                directory: ../server
 
