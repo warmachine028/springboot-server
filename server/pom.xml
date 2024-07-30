@@ -50,15 +50,15 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.13.0</version>
-        <configuration>
-          <source>21</source>
-          <target>21</target>
-          <release>21</release>
-        </configuration>
-      </plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.13.0</version>
+				<configuration>
+					<source>22</source>
+					<target>22</target>
+					<release>22</release>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 	<repositories>
