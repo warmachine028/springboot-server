@@ -10,14 +10,6 @@ name: 🍵 Java CI with Maven
 
 on:
     workflow_dispatch:
-    push:
-        branches: [main]
-        paths: 
-            - 'client/**'
-    pull_request:
-        branches: [main]
-        paths: 
-            - 'client/**'
 
 jobs:
     build:
@@ -37,13 +29,12 @@ jobs:
                   java-version: 22
                   distribution: 'corretto'
                   cache: maven
-       
+
             - name: Build with Maven
               run: |
-                cd server
-                ./mvnw package
+                  cd server
+                  ./mvnw package
 
             # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
             - name: Update dependency graph
               uses: advanced-security/maven-dependency-submission-action@v4
-              
